@@ -16,11 +16,15 @@ const (
 
 func main() {
 	lines := fileToLines("input.txt")
-	// fmt.Printf("%v\n", lines)
-	scores := linesToScoresPt2(lines)
-	// fmt.Printf("%v\n", scores)
+	// Part 1
+	scores := linesToScoresPt1(lines)
 	total := getSumFromSliceofInt(scores)
-	fmt.Print("Total: ", total, "\n")
+	fmt.Print("Total Pt1: ", total, "\n")
+
+	// Part 2
+	scores = linesToScoresPt2(lines)
+	total = getSumFromSliceofInt(scores)
+	fmt.Print("Total Pt2: ", total, "\n")
 }
 
 func fileToLines(filename string) (lines []string) {
