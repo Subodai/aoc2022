@@ -17,7 +17,7 @@ const (
 func main() {
 	lines := fileToLines("input.txt")
 	// fmt.Printf("%v\n", lines)
-	scores := linesToScoresPt1(lines)
+	scores := linesToScoresPt2(lines)
 	// fmt.Printf("%v\n", scores)
 	total := getSumFromSliceofInt(scores)
 	fmt.Print("Total: ", total, "\n")
@@ -82,6 +82,62 @@ func lettersToScore(letter string) int {
 		return 3
 	}
 	return 0
+}
+
+func linesToScoresPt2(lines []string) (scores []int) {
+	for _, line := range lines {
+		match := strings.Split(line, " ")
+		me := match[1]
+		you := match[0]
+		score := 0
+		// A = 1 rock
+		// B = 2 paper
+		// C = 3 scissors
+		switch me {
+		case "X": // loss
+			score += loss
+			switch you {
+			case "A": // they played rock
+				score += 3 // we play scissors
+
+			case "B": // they played paper
+				score += 1 // we play rock
+
+			case "C": // they played scissors
+				score += 2 // we play paper
+			}
+		case "Y": // draw
+			score += draw
+			switch you {
+			case "A": // they played rock
+				score += 1 // we play rock
+
+			case "B": // they played paper
+				score += 2 // we play paper
+
+			case "C": // they played scissors
+				score += 3 // we play scissors
+			}
+
+		case "Z": // win
+			score += win
+			switch you {
+			case "A": // they played rock
+				score += 2 // we play paper
+
+			case "B": // they played paper
+				score += 3 // we play scissors
+
+			case "C": // they played scissors
+				score += 1 // we play rock
+			}
+		}
+
+		// chuck in the slice
+		scores = append(scores, score)
+
+	}
+	return
 }
 
 func getSumFromSliceofInt(numbers []int) (sum int) {
